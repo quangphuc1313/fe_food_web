@@ -6,12 +6,7 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
-import {
-  Button,
-  Chip,
-  IconButton,
-  TextField,
-} from "@mui/material";
+import { Button, Chip, IconButton, TextField } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import HorizontalRuleOutlinedIcon from "@mui/icons-material/HorizontalRuleOutlined";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +15,10 @@ import { setCart } from "../../../../redux/reducers/cartReducer";
 import { useEffect } from "react";
 import { setProducts } from "../../../../redux/reducers/productReducer";
 import { useMemo } from "react";
-import { setPayModal, setSigninModal } from "../../../../redux/reducers/modalReducer";
+import {
+  setPayModal,
+  setSigninModal,
+} from "../../../../redux/reducers/modalReducer";
 
 const CountUp = ({ props }) => {
   const cartProduct = useSelector((state) => state.cart.data);
@@ -42,7 +40,7 @@ const CountUp = ({ props }) => {
     });
     dispatch(setCart([...cartItems]));
 
-    dataProduct.forEach ((v, i) => {
+    dataProduct.forEach((v, i) => {
       if (v._id === props._id) {
         productItems[i] = {
           ...v,
@@ -97,37 +95,45 @@ const Product = ({ props }) => {
   return (
     <Box
       sx={{
-        p: 3,
+        p: 1,
         display: "flex",
         flexDirection: "row",
         gap: 2,
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
       }}
     >
-      <img
-        src={props.image}
-        alt={props.name}
-        style={{
-          width: "60px",
-          borderRadius: "5px",
-        }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "max-content",
-        }}
-      >
-        <Typography fontWeight={600} component="h6">
-          {props.name}
-        </Typography>
-        <Typography variant="body2" sx={{textDecoration: 'line-through'}} color='orange'>{currentFormat(props.price)}</Typography>
+      <Box display={"flex"} gap={1}>
+        <img
+          src={props.image}
+          alt={props.name}
+          style={{
+            width: "60px",
+            borderRadius: "5px",
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "max-content",
+          }}
+        >
+          <Typography fontWeight={600} component="h6">
+            {props.name}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ textDecoration: "line-through" }}
+            color="orange"
+          >
+            {currentFormat(props.price)}
+          </Typography>
+        </Box>
       </Box>
       <Box>
         <CountUp props={props} />
-        <Typography variant="h6" fontWeight={600} align="center" color='orange'>
+        <Typography variant="h6" fontWeight={600} align="center" color="orange">
           {currentFormat(
             (props.price - (props.price * props.discount) / 100) *
               props.countCartUser
@@ -139,11 +145,11 @@ const Product = ({ props }) => {
 };
 
 export default function Pay({ drawerWidth }) {
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user.value)
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
   const products = useSelector((state) => state.cart.data);
   const cartProduct = useSelector((state) => state.cart.data);
-  const login = useSelector(state => state.handler.login)
+  const login = useSelector((state) => state.handler.login);
 
   let cartItems = useMemo(() => [...cartProduct], [cartProduct]); // cartItems of cart products
 
@@ -159,14 +165,14 @@ export default function Pay({ drawerWidth }) {
       products: cartItems,
       user: user,
       amount: amount(),
-    }
+    };
 
     if (!login) {
-      dispatch(setSigninModal(true))
+      dispatch(setSigninModal(true));
     } else {
-      dispatch(setPayModal({type: true, data: data}))
+      dispatch(setPayModal({ type: true, data: data }));
     }
-  }
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
