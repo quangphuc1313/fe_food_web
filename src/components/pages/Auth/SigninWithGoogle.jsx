@@ -1,8 +1,8 @@
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from "react-google-login";
 
 const responseGoogle = (response) => {
   console.log(response);
-}
+};
 
 const SigninWithGoogle = () => {
   <GoogleLogin
@@ -10,8 +10,8 @@ const SigninWithGoogle = () => {
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />
-}
+    cookiePolicy={"single_host_origin"}
+  />;
+};
 
-export default SigninWithGoogle
+export default SigninWithGoogle;
