@@ -124,7 +124,7 @@ const FoodCard = ({ props }) => {
         <CardContent sx={{ m: 0, p: 0 }}>
           <CardActionArea onClick={handleViewProductDetail}>
             <CardMedia
-              sx={{ width: "100%", height: "100px", objectFit: "fill" }}
+              sx={{ width: "100%", height: "100px", objectFit: "cover" }}
               component="img"
               image={props.image}
             />

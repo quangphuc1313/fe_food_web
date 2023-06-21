@@ -103,7 +103,7 @@ const Product = ({ props }) => {
         alignItems: "center",
       }}
     >
-      <Box display={"flex"} gap={1}>
+      <Box display={"flex"} gap={1} width={"70%"}>
         <img
           src={props.image}
           alt={props.name}
