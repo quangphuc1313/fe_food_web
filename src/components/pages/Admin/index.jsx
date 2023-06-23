@@ -82,7 +82,7 @@ const Admin = () => {
 
   dataInfo[0].count = filterData(usersRedux, "permission", 1).length;
   dataInfo[1].count = productsRedux.length;
-  dataInfo[2].count = orderRedux.flatMap((o) => o.products).length;
+  dataInfo[2].count = orderRedux.flatMap((o) => o.products).length || 0;
   // dataInfo[3].count = filter(products, {
   //   status: true,
   // }).length;
