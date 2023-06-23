@@ -50,7 +50,7 @@ const FoodCard = ({ props }) => {
   const dataProduct = useSelector((state) => state.products.data);
   const orderRedux = useSelector((state) => state.userOrder.getAll);
 
-  orderRedux.flatMap((p) => p.products).flatMap((p) => p.product);
+  // orderRedux.flatMap((p) => p.products).flatMap((p) => p.product);
 
   const handleDelete = async (e) => {
     try {
