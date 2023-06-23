@@ -1,5 +1,5 @@
 import React from "react";
-import _, { filter } from "lodash";
+import _ from "lodash";
 import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
 
 import GroupIcon from "@mui/icons-material/Group";
@@ -7,31 +7,32 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SellIcon from "@mui/icons-material/Sell";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import { useSelector } from "react-redux";
+import currentFormat from "../../../handler/currentFormat";
 
 const dataInfo = [
   {
     icon: <GroupIcon sx={{ width: 60, height: 60 }} />,
-    title: "Users",
+    title: "Người dùng",
     count: 0,
   },
   {
     icon: <Inventory2Icon sx={{ width: 60, height: 60 }} />,
-    title: "Product",
+    title: "Sản phẩm",
     count: 0,
   },
   {
     icon: <ShoppingCartIcon sx={{ width: 60, height: 60 }} />,
-    title: "Order",
+    title: "Đơn hàng",
     count: 0,
   },
   {
     icon: <SellIcon sx={{ width: 60, height: 60 }} />,
-    title: "Total Sell",
+    title: "Tổng doanh thu",
     count: 0,
   },
 ];
 
-const Information = () =>  (
+const Information = () => (
   <Box>
     <Grid container spacing={3} justifyContent="center">
       {dataInfo.map((data, index) => (
@@ -67,41 +68,33 @@ const Information = () =>  (
   </Box>
 );
 
-
 const Admin = () => {
   document.title = "Administrator";
 
   const usersRedux = useSelector((state) => state.user.allUser);
   const productsRedux = useSelector((state) => state.products.data);
   const orderRedux = useSelector((state) => state.userOrder.getAll);
+  console.log(orderRedux);
   const filterData = (arr, key, value) =>
     _.filter(arr, {
       [key]: value,
     });
 
-  let products = [];
-  orderRedux.map(
-    (order) =>
-      (products = [
-        ...order.products.map((data) => (data = { ...data, UID: order.user })),
-      ])
-  );
-
-  console.log(orderRedux.flatMap(o => o.products));
-
   dataInfo[0].count = filterData(usersRedux, "permission", 1).length;
   dataInfo[1].count = productsRedux.length;
-  dataInfo[2].count = filter(products, {
-    status: false,
-  }).length;
+  dataInfo[2].count = orderRedux.flatMap((o) => o.products).length;
   // dataInfo[3].count = filter(products, {
   //   status: true,
   // }).length;
 
-  dataInfo[3].count = orderRedux.flatMap(o => o.products).reduce(
-    (accumulator, currentValue) => accumulator + currentValue.amount,
-    0
-  ) + 'vnd';
+  dataInfo[3].count = currentFormat(
+    orderRedux
+      .flatMap((o) => o.products)
+      .reduce(
+        (accumulator, currentValue) => accumulator + currentValue.amount,
+        0
+      )
+  );
 
   return (
     <Box>

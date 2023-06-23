@@ -106,6 +106,8 @@ export default function PayModal() {
       return;
     }
 
+    console.log(data);
+
     setLoading(true);
     try {
       const userOrder = await userOrderApi.create(data);

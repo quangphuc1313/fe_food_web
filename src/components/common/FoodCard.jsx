@@ -48,6 +48,10 @@ const FoodCard = ({ props }) => {
   const { permission } = useSelector((state) => state.user.value);
   const addCart = useSelector((state) => state.cart.data);
   const dataProduct = useSelector((state) => state.products.data);
+  const orderRedux = useSelector((state) => state.userOrder.getAll);
+
+  orderRedux.flatMap((p) => p.products).flatMap((p) => p.product);
+
   const handleDelete = async (e) => {
     try {
       const product = await productApi.delete(e);
@@ -190,12 +194,14 @@ const FoodCard = ({ props }) => {
           </Box>
 
           {pathname.split("/")[1] === "admin" && permission === 0 && (
-            <><Typography variant="body2" fontWeight={600} color="primary">
-            Số lượng: {props.count}
-          </Typography>
-          <Typography variant="body2" fontWeight={600} color="primary">
-            Đã bán: {1000 - props.count}
-          </Typography></>
+            <>
+              <Typography variant="body2" fontWeight={600} color="primary">
+                Số lượng: {props.count}
+              </Typography>
+              <Typography variant="body2" fontWeight={600} color="primary">
+                Đã bán: {1000 - props.count}
+              </Typography>
+            </>
           )}
         </CardContent>
 
