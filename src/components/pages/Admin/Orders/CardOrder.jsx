@@ -8,7 +8,6 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  LinearProgress,
   Paper,
   Typography,
 } from "@mui/material";
@@ -25,6 +24,7 @@ import { setProductDetails } from "../../../../redux/reducers/productReducer";
 
 const CardOrder = ({ props, id, loading, setLoading }) => {
   const [user, setUser] = useState({});
+  const [isloading, setIsloading] = useState(false);
   const [address, setAddress] = useState({
     city: "",
     district: "",
@@ -112,19 +112,22 @@ const CardOrder = ({ props, id, loading, setLoading }) => {
 
   const handleConfirm = async () => {
     setLoading(true);
+    setIsloading(true);
     try {
       await userOrderApi.update({
         _id: id,
-        id_product: props._id,
+        id_product: props.productId,
         status: true,
+        UID: props.UID,
       });
       const orders = await userOrderApi.getAll();
       dispatch(setOrder({ data: orders, status: false }));
-      setLoading(false);
       Toast("success", "Đã xác nhận đơn hàng");
     } catch (error) {
-      setLoading(false);
       Toast("error", "Xác nhận đơn hàng thất bại");
+    } finally {
+      setIsloading(false);
+      setLoading(false);
     }
   };
 
@@ -178,7 +181,7 @@ const CardOrder = ({ props, id, loading, setLoading }) => {
               </Typography>
               {!props.status ? (
                 <LoadingButton
-                  loading={loading}
+                  loading={isloading}
                   variant="contained"
                   color="primary"
                   fullWidth

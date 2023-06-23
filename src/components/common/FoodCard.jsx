@@ -8,7 +8,6 @@ import {
   IconButton,
   Modal,
   Typography,
-  capitalize,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -125,7 +124,7 @@ const FoodCard = ({ props }) => {
         <CardContent sx={{ m: 0, p: 0 }}>
           <CardActionArea onClick={handleViewProductDetail}>
             <CardMedia
-              sx={{ width: "100%", height: "100px", objectFit: "fill" }}
+              sx={{ width: "100%", height: "100px", objectFit: "cover" }}
               component="img"
               image={props.image}
             />
@@ -191,9 +190,12 @@ const FoodCard = ({ props }) => {
           </Box>
 
           {pathname.split("/")[1] === "admin" && permission === 0 && (
-            <Typography variant="body2" fontWeight={600} color="primary">
-              Số lượng: {props.count}
-            </Typography>
+            <><Typography variant="body2" fontWeight={600} color="primary">
+            Số lượng: {props.count}
+          </Typography>
+          <Typography variant="body2" fontWeight={600} color="primary">
+            Đã bán: {1000 - props.count}
+          </Typography></>
           )}
         </CardContent>
 

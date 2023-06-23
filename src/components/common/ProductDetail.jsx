@@ -20,7 +20,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: 500,
+  maxWidth: 800,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -93,7 +93,7 @@ export default function ProductDetail() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <img src={data.image} alt={data.name} />
+          <img src={data.image} alt={data.name} style={{ width: "70%" }} />
           <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
             <Typography
               id="modal-modal-title"

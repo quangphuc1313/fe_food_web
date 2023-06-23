@@ -31,7 +31,7 @@ const dataInfo = [
   },
 ];
 
-const Information = () => (
+const Information = () =>  (
   <Box>
     <Grid container spacing={3} justifyContent="center">
       {dataInfo.map((data, index) => (
@@ -67,6 +67,7 @@ const Information = () => (
   </Box>
 );
 
+
 const Admin = () => {
   document.title = "Administrator";
 
@@ -86,14 +87,21 @@ const Admin = () => {
       ])
   );
 
+  console.log(orderRedux.flatMap(o => o.products));
+
   dataInfo[0].count = filterData(usersRedux, "permission", 1).length;
   dataInfo[1].count = productsRedux.length;
   dataInfo[2].count = filter(products, {
     status: false,
   }).length;
-  dataInfo[3].count = filter(products, {
-    status: true,
-  }).length;
+  // dataInfo[3].count = filter(products, {
+  //   status: true,
+  // }).length;
+
+  dataInfo[3].count = orderRedux.flatMap(o => o.products).reduce(
+    (accumulator, currentValue) => accumulator + currentValue.amount,
+    0
+  ) + 'vnd';
 
   return (
     <Box>

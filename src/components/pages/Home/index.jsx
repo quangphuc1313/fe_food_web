@@ -114,6 +114,8 @@ const HomePage = () => {
     setType(type);
   };
 
+  
+
   return (
     <Box sx={{ pr: `${drawerWidth}px` }}>
       <Box sx={{ p: 3 }}>

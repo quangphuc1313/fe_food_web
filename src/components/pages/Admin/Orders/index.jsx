@@ -44,6 +44,7 @@ const Bill = () => {
               amount: product.amount,
               status: product.status,
               voucher_used: product.voucher_used,
+              productId: product._id,
               _id,
               UID,
             },
@@ -84,7 +85,7 @@ const Bill = () => {
                   <CardOrder
                     props={product}
                     amount={product.amount}
-                    id={orders._id}
+                    id={product._id}
                     loading={loading}
                     setLoading={setLoading}
                   />
